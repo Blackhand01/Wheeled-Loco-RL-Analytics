@@ -1,0 +1,24 @@
+seed: 0
+
+env:
+  num_envs: 64
+  episode_length: 1000
+
+ppo:
+  total_timesteps: 10000000
+  num_steps: 64
+  lr: 3.0e-4
+  num_epochs: 4
+  batch_size: 2048
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_ratio: 0.2
+  entropy_coef: 0.01
+  value_coef: 0.5
+  max_grad_norm: 0.5
+
+logging:
+  wandb_project: Wheeled-Loco-RL
+  wandb_mode: disabled
+  save_interval: 25
+  checkpoint_dir: checkpoints
