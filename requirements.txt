@@ -4,5 +4,7 @@ optax
 mujoco
 mujoco-mjx
 numpy
+imageio
+imageio-ffmpeg
 PyYAML
 wandb
