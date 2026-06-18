@@ -11,3 +11,4 @@ wandb/
 
 data_management/*.pkl
 data_management/*.json
+docs/mujoco-viewer.md

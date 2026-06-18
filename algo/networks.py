@@ -18,20 +18,22 @@ class ActorCritic(nn.Module):
 
     @nn.compact
     def __call__(self, obs: jax.Array) -> tuple[jax.Array, jax.Array, jax.Array]:
-        actor = obs
+        actor = obs # tensor
         for width in self.hidden_sizes:
-            actor = nn.Dense(
+            actor = nn.Dense(   # 3 hidden layers
                 width,
-                kernel_init=nn.initializers.orthogonal(jnp.sqrt(2.0)),
+                # initial geometric transformation will be only rotations and reflections, without scaling
+                kernel_init=nn.initializers.orthogonal(jnp.sqrt(2.0)),  # gain is sqrt(2) for tanh nonlinearity
                 bias_init=nn.initializers.zeros,
             )(actor)
-            actor = nn.tanh(actor)
+            actor = nn.tanh(actor) # gain + tanh are common choices to avoid vanishing/exploding gradients
 
-        mean = nn.Dense(
+        mean = nn.Dense( # output layer for mean of Gaussian policy
             self.action_dim,
             kernel_init=nn.initializers.orthogonal(0.01),
             bias_init=nn.initializers.zeros,
         )(actor)
+
         log_std = self.param(
             "log_std",
             nn.initializers.constant(self.log_std_init),
