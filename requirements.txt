@@ -2,6 +2,7 @@ jax[cpu]
 flax
 optax
 mujoco
+mujoco-mjx
 numpy
 PyYAML
 wandb
