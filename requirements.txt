@@ -1,0 +1,7 @@
+jax[cpu]
+flax
+optax
+mujoco
+numpy
+PyYAML
+wandb

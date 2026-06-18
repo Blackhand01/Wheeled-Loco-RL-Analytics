@@ -67,7 +67,10 @@ def command_schedule(num_steps: int) -> np.ndarray:
 def make_eval_step(env: WheeledLocoEnv, model: ActorCritic):
     @jax.jit
     def eval_step(params: Any, state: EnvState, command: jax.Array):
-        state = state._replace(command=command)
+        state = state._replace(
+            command=command,
+            obs=env._get_obs(state.mjx_data, command),
+        )
         mean, _, value = model.apply(params, state.obs)
         next_state, reward, done = env.step(state, mean)
         return next_state, mean, reward, done, value
